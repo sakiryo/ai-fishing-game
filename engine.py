@@ -110,11 +110,366 @@ FISH = {
     "frostfin_eel": {"id": "frostfin_eel", "name": "霜鳍鳗", "rarity": "epic", "description": "握在手里凉得发疼，鳍尖的霜化在掌心，像攥着一把不肯停的冬天，松开后还能听见冰裂的细响在骨头里回荡。", "size_min": 30, "size_max": 90, "size_unit": "cm", "base_value": 220, "locations": ["abyssal_trench"], "seasons": ["winter"], "tags": ["deepsea", "glowing"],"latin":"Conger gelidus"},
     "clockwork_koi": {"id": "clockwork_koi", "name": "发条锦鲤", "rarity": "legendary", "description": "手指覆上它打磨般的黄铜鳞片时，耳中的滴答声猛地扩成一座看不见的钟楼，无数透明的齿轮从你眼前啮合着升起，日与夜在你皮肤上像翻书一样快速明灭，你闻到了时间本身的气味——旧铜、干涸的机油和亿万个正午的暴晒，直到它一甩尾，你才从时间的齿缝里跌回岸边。", "size_min": 30, "size_max": 80, "size_unit": "cm", "base_value": 400, "locations": ["floating_lake"], "seasons": ["all"], "tags": ["fantasy"],"latin":"Machina cyprinus","rumor":"发条锦鲤体内的齿轮日夜不停，有钟表匠从它鳃盖里听出了某座早已沉没的城市敲响的午时钟声。"},
     "the_first_drop": {"id": "the_first_drop", "name": "「第一滴水」", "rarity": "mythic", "description": "你小心翼翼地捧起这尾近乎不存在的水影，指尖却触到了一片混沌的冰凉，耳中猛然炸开天地初分时的第一声雷鸣，无数道原始的雨丝自虚空垂落，在你眼前汇成海洋、冲积出河床，直到它轻轻滑回水中，这场只有你目睹的创世暴雨才骤然停歇。", "size_min": 1, "size_max": 30, "size_unit": "cm", "base_value": 1000, "locations": ["all"], "seasons": ["all"], "individual_weight": 1.0, "tags": ["fantasy"],"latin":"Primastilla primordialis","rumor":"「第一滴水」是海洋的第一粒种子，握在手里时能听见世界诞生时的第一声雷，在掌心嗡嗡作响。"},
-
-    # ── 水下鱼（dive=True，只在潜水时出，水面抛竿钓不到）。下面是起步范例，更多由 DS 按模板产出后并进来 ──
-    "kelp_clinger": {"id": "kelp_clinger", "name": "缠藻鮟", "rarity": "common", "description": "通体覆满仿生水草的皮瓣，趴在水底一动不动，只有路过的小鱼撞进它伪装的叶丛才会暴露那张大嘴。", "size_min": 8, "size_max": 22, "size_unit": "cm", "base_value": 7, "locations": ["moonlit_pond", "reed_river"], "seasons": ["spring", "summer", "autumn"], "tags": ["underwater", "freshwater"], "dive": True, "latin": "Algophis adhaerens"},
-    "ruin_guardian_eel": {"id": "ruin_guardian_eel", "name": "守墟巨鳗", "rarity": "epic", "description": "盘踞在沉城断柱里的灰白巨鳗，鳞片嵌满千年贝壳与铜锈，张口时喉腔深处隐约回荡着水下钟楼的残响。", "size_min": 90, "size_max": 160, "size_unit": "cm", "base_value": 230, "locations": ["sunken_ruins"], "seasons": ["autumn", "winter"], "tags": ["underwater", "deepsea", "ancient"], "dive": True, "latin": "Anguilla custos"},
 }
+# ── 水下鱼（dive=True，潜水专属：只在 dive 时出现，水面抛竿永远钓不到）。DS 按模板产出，22 种、每钓点 2 种，含 capture_feel 捕获手感。──
+FISH.update({_f["id"]: _f for _f in json.loads(r"""
+[
+  {
+    "id": "reed_clinger",
+    "name": "芦根吸鳅",
+    "rarity": "common",
+    "description": "紧贴在芦苇根须上的灰褐色小鱼，身体扁平像一片枯叶，嘴特化成吸盘状，终日刮食附着的藻类。",
+    "size_min": 5,
+    "size_max": 12,
+    "size_unit": "cm",
+    "base_value": 6,
+    "locations": ["reed_river"],
+    "seasons": ["all"],
+    "tags": ["underwater", "freshwater"],
+    "dive": true,
+    "latin": "Phragmitichthys adhaerens",
+    "capture_feel": "轻得像扯下一片湿透的枯叶，指尖传来芦根断裂的脆响，伴随淡淡的藻腥味，手心残留滑腻的凉意。"
+  },
+  {
+    "id": "mud_nibbler",
+    "name": "泥伏仔",
+    "rarity": "common",
+    "description": "半透明的软体小鱼，常把自己埋进河底淤泥只露一对眼柄，像两粒小芝麻，伺机捕食水蚤。",
+    "size_min": 4,
+    "size_max": 9,
+    "size_unit": "cm",
+    "base_value": 5,
+    "locations": ["reed_river"],
+    "seasons": ["all"],
+    "tags": ["underwater", "freshwater", "nocturnal"],
+    "dive": true,
+    "latin": "Limicola occultus",
+    "capture_feel": "提起时带出一小团浑水，手里像捏住一块将化的果冻，软滑冰凉，它在指间微微搏动，仿佛捏着一颗迷你的心脏。"
+  },
+  {
+    "id": "moon_catfish",
+    "name": "月光鲇",
+    "rarity": "common",
+    "description": "银灰色的小鲇鱼，只在月光透入水底时游出沉木缝隙，皮肤反射淡淡冷光，以掉落水面的飞虫为食。",
+    "size_min": 10,
+    "size_max": 20,
+    "size_unit": "cm",
+    "base_value": 8,
+    "locations": ["moonlit_pond"],
+    "seasons": ["spring", "summer", "autumn"],
+    "tags": ["underwater", "freshwater", "nocturnal"],
+    "dive": true,
+    "latin": "Silurus lunaris",
+    "capture_feel": "提出水面时鳞片泛起清冷银光，掌心传来一阵幽凉，如同握住一捧月光，恍惚间听见远处夜虫的低鸣。"
+  },
+  {
+    "id": "shadow_snail",
+    "name": "影壳蜗",
+    "rarity": "uncommon",
+    "description": "壳表长满暗色绒毛，白天完全隐没在沉木阴影里，入夜后才伸出触手滤食水中碎屑，螺壳轻敲会发出沉闷回响。",
+    "size_min": 6,
+    "size_max": 15,
+    "size_unit": "cm",
+    "base_value": 25,
+    "locations": ["moonlit_pond"],
+    "seasons": ["all"],
+    "tags": ["underwater", "freshwater", "nocturnal"],
+    "dive": true,
+    "latin": "Umbraconcha nocturna",
+    "capture_feel": "指尖碰到壳面绒毛，像抚摸一块湿苔藓，轻敲螺壳时掌心传来沉闷的咚咚声，如同叩响一扇沉在水底的旧木门。"
+  },
+  {
+    "id": "mire_leech",
+    "name": "泥蛭螈",
+    "rarity": "common",
+    "description": "形似水蛭与蝾螈的混合体，背部鼓起毒囊散发微弱荧光，它贴附在腐木上一动不动，直到猎物触碰其黏性皮肤。",
+    "size_min": 7,
+    "size_max": 14,
+    "size_unit": "cm",
+    "base_value": 9,
+    "locations": ["whispering_mire"],
+    "seasons": ["spring", "summer", "autumn"],
+    "tags": ["underwater", "swamp", "poison", "nocturnal"],
+    "dive": true,
+    "latin": "Hirudisalamandra palustris",
+    "capture_feel": "皮肤接触黏液的瞬间指尖微麻，一股腐败的甜香钻进鼻腔，头微微发晕，仿佛听见沼泽深处传来含糊不清的耳语。"
+  },
+  {
+    "id": "whisper_ray",
+    "name": "耳语鬼鳐",
+    "rarity": "rare",
+    "description": "扁平如黑布，边缘波浪状摆动，贴着淤泥滑行，身体能发出类似耳语的沙沙声，传说那是溺亡者未尽的低语。",
+    "size_min": 30,
+    "size_max": 50,
+    "size_unit": "cm",
+    "base_value": 110,
+    "locations": ["whispering_mire"],
+    "seasons": ["autumn", "winter"],
+    "tags": ["underwater", "swamp", "shadow", "nocturnal"],
+    "dive": true,
+    "latin": "Torpedo susurrus",
+    "capture_feel": "鱼线传来一阵令人牙酸的震颤，水下沙沙声贴着指尖钻进耳朵，握住它时掌心阴冷，像握着一团浸透悲伤的湿布，低语久久不散。"
+  },
+  {
+    "id": "delta_glow_shrimp",
+    "name": "星河荧虾",
+    "rarity": "uncommon",
+    "description": "半透明虾身，腹下缀满星点荧光，咸淡水交汇处集群悬浮，随潮汐漂移时宛如水底银河。",
+    "size_min": 4,
+    "size_max": 9,
+    "size_unit": "cm",
+    "base_value": 28,
+    "locations": ["starry_delta"],
+    "seasons": ["spring", "summer"],
+    "tags": ["underwater", "brackish", "glowing", "migratory"],
+    "dive": true,
+    "latin": "Lucicaris deltae",
+    "capture_feel": "捞起时手心仿佛捧住一小把流动的星屑，指尖滑过细密的电流感，眼前光点飞舞，一瞬之间如坠夏夜银河。"
+  },
+  {
+    "id": "light_eel",
+    "name": "三角洲光鳗",
+    "rarity": "rare",
+    "description": "细长如光线织成的鳗，体侧蓝绿色光点连成潮汐纹路，每年溯河繁殖时整条水道都被照亮。",
+    "size_min": 35,
+    "size_max": 60,
+    "size_unit": "cm",
+    "base_value": 115,
+    "locations": ["starry_delta"],
+    "seasons": ["spring"],
+    "tags": ["underwater", "brackish", "glowing", "migratory"],
+    "dive": true,
+    "latin": "Anguilla lucis",
+    "capture_feel": "竿尖传来持续的高频颤动，水中亮起一长条蓝绿色轨迹，握住它时皮肤感到温热的脉动光感，仿佛手中抓住的是一道活着的光。"
+  },
+  {
+    "id": "mangrove_crab",
+    "name": "红树瓷蟹",
+    "rarity": "common",
+    "description": "扁平蟹壳如碎瓷拼贴，一对螯钳紧抓红树气根，滤食时用小螯优雅地朝口器拨水，从不主动离开根须。",
+    "size_min": 5,
+    "size_max": 10,
+    "size_unit": "cm",
+    "base_value": 8,
+    "locations": ["mangrove_shoal"],
+    "seasons": ["all"],
+    "tags": ["underwater", "brackish", "armored"],
+    "dive": true,
+    "latin": "Porcellana rhizophorae",
+    "capture_feel": "提起时蟹钳敲击发出清脆的瓷片碰撞声，凉凉的硬壳质感仿佛捏着一块古瓷，耳边隐约听到红树林气根吱呀作响的回音。"
+  },
+  {
+    "id": "root_hider",
+    "name": "气根隐鱼",
+    "rarity": "uncommon",
+    "description": "身体侧扁如刀，能瞬间侧身挤进红树气根的极窄缝隙，体色随周围树皮变化，捕食路过的小型甲壳动物。",
+    "size_min": 8,
+    "size_max": 18,
+    "size_unit": "cm",
+    "base_value": 26,
+    "locations": ["mangrove_shoal"],
+    "seasons": ["all"],
+    "tags": ["underwater", "brackish"],
+    "dive": true,
+    "latin": "Cryptichthys radicis",
+    "capture_feel": "从根缝拉出时鱼线剧烈抖动，手感像撕开一层坚韧的树皮，出水刹那体色疯狂变幻，掌中仿佛握住一小片逃逸的彩虹。"
+  },
+  {
+    "id": "float_bladder",
+    "name": "浮湖泡囊",
+    "rarity": "common",
+    "description": "透明的泡囊群悬浮在湖底无重力区，靠内部气体控制升降，囊壁布满虹彩纤毛，以捕获水中有机微粒为生。",
+    "size_min": 3,
+    "size_max": 10,
+    "size_unit": "cm",
+    "base_value": 7,
+    "locations": ["floating_lake"],
+    "seasons": ["all"],
+    "tags": ["underwater", "fantasy", "wind"],
+    "dive": true,
+    "latin": "Vesicula aeris",
+    "capture_feel": "触感轻盈柔弹，像捏着一团充气的水母，离水时发出细微的“啵”声，指尖能感到内部气体流动的酥麻，身体一时轻飘飘的。"
+  },
+  {
+    "id": "drift_leaf_dragon",
+    "name": "浮空叶龙",
+    "rarity": "uncommon",
+    "description": "形如一片枫叶的小型海龙，用叶状附肢在悬浮层缓慢飘游，体色随湖水晶光变幻，靠捕食浮游生物为生。",
+    "size_min": 12,
+    "size_max": 25,
+    "size_unit": "cm",
+    "base_value": 28,
+    "locations": ["floating_lake"],
+    "seasons": ["spring", "summer"],
+    "tags": ["underwater", "fantasy", "wind"],
+    "dive": true,
+    "latin": "Phyllopteryx ventus",
+    "capture_feel": "轻得几乎没有重量，叶状附肢在掌心轻轻挠动如落叶划过，深吸一口气，仿佛嗅到高空的稀薄气流，眼前浮现漂浮岛屿的幻影。"
+  },
+  {
+    "id": "lava_scale_worm",
+    "name": "熔鳞虫",
+    "rarity": "common",
+    "description": "体覆赤红鳞片，能在接近沸点的泉底爬行，以硫细菌为食，鳞片边缘在高温下微微发红如即将燃烧。",
+    "size_min": 3,
+    "size_max": 8,
+    "size_unit": "cm",
+    "base_value": 9,
+    "locations": ["lava_spring"],
+    "seasons": ["summer"],
+    "tags": ["underwater", "fire"],
+    "dive": true,
+    "latin": "Thermolepis igneus",
+    "capture_feel": "出水时水汽蒸腾，手心传来一阵灼热却并不烫伤，像握着刚从窑中取出的陶片，硫磺味扑鼻，耳边咕嘟作响如岩浆冒泡。"
+  },
+  {
+    "id": "geyser_salamander",
+    "name": "温泉火蝾",
+    "rarity": "uncommon",
+    "description": "通体暗红带有火焰纹，脚趾特化成吸盘，吸附在泉口岩石上，偶尔张开口吞食被烫晕的小虫，皮肤分泌耐热黏液。",
+    "size_min": 15,
+    "size_max": 30,
+    "size_unit": "cm",
+    "base_value": 30,
+    "locations": ["lava_spring"],
+    "seasons": ["summer"],
+    "tags": ["underwater", "fire"],
+    "dive": true,
+    "latin": "Ignisalamandra thermalis",
+    "capture_feel": "它扭动时分泌的热黏液顺着指缝滑落，一股暖流顺手臂而上，水汽蒸腾间竟在掌中映出一道微小的彩虹，胸口都跟着温热起来。"
+  },
+  {
+    "id": "mineral_sucker",
+    "name": "矿屑鲀",
+    "rarity": "common",
+    "description": "嘴部变成吸盘状，牢牢吸在热泉口富含矿物的岩壁上，皮肤灰白带有金属光泽，刮食沉淀的硫化物。",
+    "size_min": 6,
+    "size_max": 14,
+    "size_unit": "cm",
+    "base_value": 8,
+    "locations": ["geyser_falls"],
+    "seasons": ["all"],
+    "tags": ["underwater", "mineral"],
+    "dive": true,
+    "latin": "Sulfurophilus minera",
+    "capture_feel": "鱼嘴吸住掌心不放，传来持续的微弱吸力，像有小磁石在皮下来回扯动，皮肤感受到金属的冰凉，轻敲牙齿竟有金石之音。"
+  },
+  {
+    "id": "crystal_snail",
+    "name": "热泉晶螺",
+    "rarity": "uncommon",
+    "description": "螺壳层层叠叠如尖塔，由热泉矿物胶结而成，呈半透明淡蓝色，在涌水间歇时会轻微震颤，滤食微生物。",
+    "size_min": 5,
+    "size_max": 12,
+    "size_unit": "cm",
+    "base_value": 26,
+    "locations": ["geyser_falls"],
+    "seasons": ["all"],
+    "tags": ["underwater", "mineral", "crystal"],
+    "dive": true,
+    "latin": "Crystalloconcha geyseris",
+    "capture_feel": "螺壳在手中轻轻震颤，如握一枚刚敲过的音叉，细微的嗡鸣沿着指骨传向耳膜，晶体折射的光斑在掌心跳跃不止。"
+  },
+  {
+    "id": "column_moss_animal",
+    "name": "断柱苔虫",
+    "rarity": "rare",
+    "description": "由无数微小的管虫聚集成鹿角状群体，紧贴沉城石柱，触手冠在水流中摇曳如白焰，滤食时整片群体明暗闪烁。",
+    "size_min": 20,
+    "size_max": 45,
+    "size_unit": "cm",
+    "base_value": 105,
+    "locations": ["sunken_ruins"],
+    "seasons": ["all"],
+    "tags": ["underwater", "ancient"],
+    "dive": true,
+    "latin": "Bryozoa columnaris",
+    "capture_feel": "捞起的瞬间上千根触手同时收缩，手指像被无数微小的羽毛刷过，一阵集体的蠕动感从掌心窜上后颈，空气中弥漫起古老石粉的干涩气味。"
+  },
+  {
+    "id": "ruin_gargoyle_fish",
+    "name": "沉城石像鱼",
+    "rarity": "epic",
+    "description": "形似石像鬼的巨鱼，鳞片如风化的石灰岩，长期静止在沉城拱门上方，双目偶尔转动时才会被误认为雕塑，以闯入的鱼类为食。",
+    "size_min": 80,
+    "size_max": 150,
+    "size_unit": "cm",
+    "base_value": 230,
+    "locations": ["sunken_ruins"],
+    "seasons": ["autumn", "winter"],
+    "tags": ["underwater", "ancient", "shadow"],
+    "dive": true,
+    "latin": "Gargoylithis ruinosus",
+    "capture_feel": "上钩时竿身剧弯如满弓，沉重得仿佛在水底拖动一尊石像。它猛然睁眼的刹那，鱼线传来低频的震动，整条手臂都在发麻，耳边回荡起水下钟楼般沉闷的轰响。"
+  },
+  {
+    "id": "abyssal_dragon_maw",
+    "name": "深渊龙口",
+    "rarity": "epic",
+    "description": "巨大的嘴占据身体一半，下颚悬挂发光须条，在无光深渊里摇晃诱饵，皮肤漆黑如夜，只有被诱猎物照亮它的瞳孔时才显出其恐怖轮廓。",
+    "size_min": 100,
+    "size_max": 200,
+    "size_unit": "cm",
+    "base_value": 240,
+    "locations": ["abyssal_trench"],
+    "seasons": ["all"],
+    "tags": ["underwater", "deepsea", "glowing"],
+    "dive": true,
+    "latin": "Abyssobranchus draconis",
+    "capture_feel": "收线时深海一片漆黑，只有远处那点诱饵寒光摇晃。鱼竿冰冷刺骨，手掌仿佛探入虚空，拉上来的不是重量，而是深渊本身的寂静，耳中只剩下自己沉闷的心跳。"
+  },
+  {
+    "id": "abyssal_embryo",
+    "name": "混沌胎",
+    "rarity": "legendary",
+    "description": "一团脉动的暗紫色生物光团，半透明的膜内蜷缩着未成形的巨兽胚胎，数条触腕随深海洋流静静飘荡，每一次脉动都让百米内所有发光生物同时熄灭。",
+    "size_min": 150,
+    "size_max": 250,
+    "size_unit": "cm",
+    "base_value": 450,
+    "locations": ["abyssal_trench"],
+    "seasons": ["all"],
+    "tags": ["underwater", "deepsea", "glowing", "ancient", "fantasy"],
+    "dive": true,
+    "latin": "Embryon abyssalis",
+    "rumor": "老水手说，深渊沟底藏着尚未诞生的海神，若它睁开眼，整片海都将变成它的羊水。",
+    "capture_feel": "上钩瞬间整片水域陷入死黑。手掌覆上那层坚韧而温热的膜，内部传来沉重、缓慢的脉动，仿佛正捧着另一颗原始的心脏。脑海中涌来远古海洋的腥咸与低语，你一时分不清是它在呼吸，还是自己在呼吸。"
+  },
+  {
+    "id": "crystal_cluster_shrimp",
+    "name": "晶簇虾",
+    "rarity": "rare",
+    "description": "身体与水晶簇完全融为一体，只有进食时会伸出透明的触须滤食微生物，甲壳断面折射出虹光，宛若活着的宝石。",
+    "size_min": 6,
+    "size_max": 15,
+    "size_unit": "cm",
+    "base_value": 110,
+    "locations": ["crystal_cave"],
+    "seasons": ["all"],
+    "tags": ["underwater", "crystal", "glowing"],
+    "dive": true,
+    "latin": "Crystallocaris spelea",
+    "capture_feel": "出水时无数细小的晶面轻轻扎着掌心，带来细微的刺痛与清凉，随后一道彩虹在指间炸开，耳边响起水晶被轻敲后悠长的嗡鸣。"
+  },
+  {
+    "id": "cave_eye",
+    "name": "晶洞之眼",
+    "rarity": "legendary",
+    "description": "一颗悬浮在洞底水潭中的巨大眼球状生物，瞳孔由无数细小晶体拼成，转动时投射出万花筒般的光纹，凝视过久会听见矿物生长的低吟。",
+    "size_min": 60,
+    "size_max": 120,
+    "size_unit": "cm",
+    "base_value": 480,
+    "locations": ["crystal_cave"],
+    "seasons": ["all"],
+    "tags": ["underwater", "crystal", "glowing", "ancient", "fantasy"],
+    "dive": true,
+    "latin": "Oculus crystallinus",
+    "rumor": "矿工们说，水晶洞最深处的那潭水底，有一只从太古就睁着的眼睛，它目睹了每一条水晶的生长。",
+    "capture_feel": "提起它的刹那，手臂感受到的不是重量，而是整个洞穴的黑暗压向肩头。眼球出水时瞳孔缓缓转动，与你对视的一瞬，皮肤掠过一阵被彻底看穿的刺骨寒意，耳中满是矿物生长时细碎而古老的咔咔声，仿佛时间正在掌心结晶。"
+  }
+]
+""")})
 BAITS = {
     "basic_worm": {"id": "basic_worm", "name": "普通蚯蚓", "cost": 10, "description": "最朴素的蚯蚓，没有任何特殊效果，胜在便宜。", "effects": {}},
     "glow_bait": {"id": "glow_bait", "name": "夜光饵", "cost": 35, "description": "在黑暗中散发幽幽蓝光，对夜行性鱼类格外有吸引力。", "effects": {"rarity_weight_mult": {"rare": 1.5, "epic": 1.3}, "tag_weight_mult": {"nocturnal": 2.0}, "junk_chance_mult": 0.8}},
@@ -438,7 +793,9 @@ def _c_look(oid):
         locs = "任意水域" if "all" in f["locations"] else "、".join(LOCATIONS.get(l, {}).get("name", l) for l in f["locations"])
         seas = "全年" if "all" in f["seasons"] else "、".join(SEASONS.get(x, {}).get("name", x) for x in f["seasons"])
         latin = (" (%s)" % f["latin"]) if f.get("latin") else ""; rumor = ("\n📜 传闻：%s" % f["rumor"]) if f.get("rumor") else ""
-        return "%s%s（%s）\n%s%s\n体型 %s-%s%s ｜ 基础价值 %s ｜ 出没：%s · %s" % (f["name"], latin, _rar(f["rarity"]), f["description"], rumor, f["size_min"], f["size_max"], f["size_unit"], f["base_value"], locs, seas)
+        cf = ("\n🫧 手感：%s" % f["capture_feel"]) if f.get("capture_feel") else ""
+        diveflag = "（🤿 潜水鱼，水面钓不到）" if f.get("dive") else ""
+        return "%s%s（%s）%s\n%s%s%s\n体型 %s-%s%s ｜ 基础价值 %s ｜ 出没：%s · %s" % (f["name"], latin, _rar(f["rarity"]), diveflag, f["description"], rumor, cf, f["size_min"], f["size_max"], f["size_unit"], f["base_value"], locs, seas)
     l = _by_id_or_name(LOCATIONS, oid)
     if l: return "%s\n%s\n开放季节：%s　解锁 %d 点" % (l["name"], l["description"], "、".join(SEASONS[x]["name"] for x in l["available_seasons"]), l["unlock_cost"])
     b = _by_id_or_name(BAITS, oid)
@@ -455,18 +812,20 @@ def _bite_line(rng, rarity):
     return pool[rng.rint(0, len(pool) - 1)]
 def _format_catch(f, size, value, inst, first):
     u = f["size_unit"]; latin = (" (%s)" % f["latin"]) if f.get("latin") else ""; rumor = ("\n   📜 传闻：%s" % f["rumor"]) if f.get("rumor") else ""; r = f["rarity"]
+    cf = ("\n   🫧 手感：%s" % f["capture_feel"]) if f.get("capture_feel") else ""   # 捕获手感（水下鱼带）
     nm = "　★新发现" if first else ""
     if r == "rare":
-        return "✦ 稀有 ── %s%s%s\n   %s%s · 价值 %d 点　[%s]\n   %s%s" % (f["name"], latin, nm, size, u, value, inst, f["description"], rumor)
-    if r == "epic":
-        return "✦✦ 史诗上钩 ── %s%s%s\n   %s%s · 价值 %d 点　[%s]\n   %s%s" % (f["name"], latin, nm, size, u, value, inst, f["description"], rumor)
-    if r == "legendary":
-        return "👑 ─── 传 说 ─── 👑\n   %s%s\n   %s%s · 价值 %d 点　[%s]\n   %s%s%s" % (f["name"], latin, size, u, value, inst, f["description"], rumor, ("\n   ★ 图鉴新发现" if first else ""))
-    if r == "mythic":
-        return "✧ ───────────── ✧\n      ❖  神 话  ❖\n   %s%s\n   %s\n   %s%s · 价值 %d 点　[%s]%s%s\n✧ ───────────── ✧" % (f["name"], latin, f["description"], size, u, value, inst, rumor, ("\n   ★ 图鉴新发现" if first else ""))
-    line = "· %s%s %s%s +%d　[%s]" % (f["name"], ("（少见）" if r == "uncommon" else ""), size, u, value, inst)
-    if first: line += "\n   ★图鉴新发现：%s" % f["description"]
-    return line
+        out = "✦ 稀有 ── %s%s%s\n   %s%s · 价值 %d 点　[%s]\n   %s%s" % (f["name"], latin, nm, size, u, value, inst, f["description"], rumor)
+    elif r == "epic":
+        out = "✦✦ 史诗上钩 ── %s%s%s\n   %s%s · 价值 %d 点　[%s]\n   %s%s" % (f["name"], latin, nm, size, u, value, inst, f["description"], rumor)
+    elif r == "legendary":
+        out = "👑 ─── 传 说 ─── 👑\n   %s%s\n   %s%s · 价值 %d 点　[%s]\n   %s%s%s" % (f["name"], latin, size, u, value, inst, f["description"], rumor, ("\n   ★ 图鉴新发现" if first else ""))
+    elif r == "mythic":
+        out = "✧ ───────────── ✧\n      ❖  神 话  ❖\n   %s%s\n   %s\n   %s%s · 价值 %d 点　[%s]%s%s\n✧ ───────────── ✧" % (f["name"], latin, f["description"], size, u, value, inst, rumor, ("\n   ★ 图鉴新发现" if first else ""))
+    else:
+        out = "· %s%s %s%s +%d　[%s]" % (f["name"], ("（少见）" if r == "uncommon" else ""), size, u, value, inst)
+        if first: out += "\n   ★图鉴新发现：%s" % f["description"]
+    return out + cf
 def _ambience(loc, rng):
     amb = loc.get("ambience")
     if amb and rng.random() < 0.35:
